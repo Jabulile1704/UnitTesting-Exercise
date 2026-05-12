@@ -8,17 +8,17 @@ namespace Bank
 
         public BankAccount()
         {
-        }
+        }//end constructor1
 
         public BankAccount(double balance)
         {
             this.balance = balance;
 
-        }
+        }//end constructor2
 
         public double Balance
         {
-            get { return balance; }
+            get { return balance; } //property that returns 1 balance
         }
 
         public void Add(double amount)
@@ -34,10 +34,28 @@ namespace Bank
 
         public void Withdraw(double amount)
         {
+            if (amount > balance)
+            {
+                throw new ArgumentOutOfRangeException(nameof(amount));
+            }
 
-        }
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(amount));
+            }
 
+            balance -= amount;
+        }//end Withdraw
 
-    }//end class BankAccount
+        public void TransferFunds(BankAccount otherAccount, double amount)
+        {
+            if (otherAccount is null)
+            {
+                throw new ArgumentNullException(nameof(otherAccount));
+            }
 
+            Withdraw(amount);
+            otherAccount.Add(amount);
+        }//end TransferFunds
+    }//end class BankAccoun
 }//end namespace Bank
